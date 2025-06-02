@@ -1,0 +1,32 @@
+Admin controller
+-----------------
+view List of available courses
+	Course name
+
+insert into courses(name,description,status,creation_date,updated_on) values('Cdac','Organised By Gov. of India',1,'1989-09-01','2000-06-09');
+insert into courses(name,description,status,creation_date,updated_on) values('IT','Engineering Course',1,'1989-09-01','2000-06-09');
+	
+Staff Entity
+-------------
+	Staff Name
+	Staff email
+	Staff Phone
+	
+staff -entity
+	respDTO
+	ReqDTo
+operations:- 
+	Add courses
+	list of courses
+	List enroll students
+
+View enroll student
+	 Name
+	 email
+	 Phone
+
+Category
+Types Of courses
+
+
+
