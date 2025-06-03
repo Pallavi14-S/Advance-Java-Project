@@ -1,12 +1,30 @@
-Admin controller
+Admin controller(Pallavi)
 -----------------
-view List of available courses
+1)view List of available courses
 	Course name
 
 insert into courses(name,description,status,creation_date,updated_on) values('Cdac','Organised By Gov. of India',1,'1989-09-01','2000-06-09');
 insert into courses(name,description,status,creation_date,updated_on) values('IT','Engineering Course',1,'1989-09-01','2000-06-09');
+
+2)Add Course(@OneToMany)
+Name:
+(a)CDAC
+ Category(@ManyToOne)
+   Types Of courses
+	1.DBDA
+	 ->Contents
+         ->Description
+         ->Price
 	
-Staff Entity
+         2.DAC
+
+
+3)Add Staff
+4)Delete Staff
+5)View Enroll Student
+6)Delete Student
+	
+Staff Entity(Rajnandini)
 -------------
 	Staff Name
 	Staff email
@@ -15,18 +33,33 @@ Staff Entity
 staff -entity
 	respDTO
 	ReqDTo
-operations:- 
+Staff operations:- 
 	Add courses
 	list of courses
-	List enroll students
+	List enroll students(Only for his courses)
 
 View enroll student
 	 Name
 	 email
 	 Phone
+	
+STudent Entity(Kaustubh)
+----------------
+	()Registration
+         Name,Email,Password,Adhar No, Marks,
+	()View List Of Courses
+	()Enroll Course
+	->Name
+	->Price
+	->Description
+	
+<--->After Successfull Enrollment<--->
+JWT Token
 
-Category
-Types Of courses
+List Of Enroll COurses          
+ Contents of COurses
+		
+
 
 
 
