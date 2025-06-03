@@ -12,5 +12,6 @@ import com.cdac.entity.Course;
 public interface CourseDao extends JpaRepository<Course, Long>{
 
 	public List<Course> findByStatusTrue();
+	//boolean existByName(String courseName);
 
 }
