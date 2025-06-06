@@ -14,7 +14,7 @@ import com.cdac.dto.StudentRequestDTO;
 import com.cdac.dto.StudentResponseDTO;
 import com.cdac.entity.Course;
 import com.cdac.entity.Student;
-import com.cdac.exception.ResourceNotFoundException;
+import com.cdac.custom_exceptions.ResourceNotFoundException;
 
 import lombok.AllArgsConstructor;
 
