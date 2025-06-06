@@ -9,9 +9,6 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import lombok.Getter;
 import lombok.Setter;
 
-
-
-
 @Getter
 @Setter
 

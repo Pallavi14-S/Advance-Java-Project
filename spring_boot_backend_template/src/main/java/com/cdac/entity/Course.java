@@ -40,7 +40,7 @@ public class Course extends BaseEntity {
 		categories.setMyCourse(this);
 		
 	}
-	public void remiveCategory(Category categories)
+	public void removeCategory(Category categories)
 	{
 		this.categories.remove(categories);
 		categories.setMyCourse(null);
