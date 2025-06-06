@@ -7,18 +7,26 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
 @Table(name="categories",
-uniqueConstraints = @UniqueConstraint(columnNames = {"category_name","course_id"}) )
+uniqueConstraints = @UniqueConstraint
+(columnNames = {"category_name","course_id"}))
 @ToString(callSuper=true, exclude="myCourse")
+@NoArgsConstructor
+@Getter
+@Setter
 public class Category extends BaseEntity{
 	
-	@Column(name="category_description" ,length=200)
-	private String categoryDescription;
+
 	@Column(name="category_name", length=100,unique=true)
 	private String categoryName;
+	@Column(name="category_description" ,length=200)
+	private String categoryDescription;
 	private double price;
 	private String content;
 	@Column(name="is_available")
