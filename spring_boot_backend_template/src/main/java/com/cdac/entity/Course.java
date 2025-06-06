@@ -35,6 +35,16 @@ public class Course extends BaseEntity {
 		this.name = name;
 		this.description = description;
 	}
+	public void addCategory(Category categories) {
+		this.categories.add(categories);
+		categories.setMyCourse(this);
+		
+	}
+	public void remiveCategory(Category categories)
+	{
+		this.categories.remove(categories);
+		categories.setMyCourse(null);
+	}
 	
 
 }
