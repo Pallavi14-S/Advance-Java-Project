@@ -7,6 +7,8 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -29,7 +31,12 @@ public class Course extends BaseEntity {
 	@OneToMany(mappedBy = "myCourse",cascade=CascadeType.ALL,
 			orphanRemoval=true,fetch=FetchType.EAGER
 			)
-	private List<Category> categories=new ArrayList<>(); 
+	private List<Category> categories=new ArrayList<>();
+	
+	@ManyToOne
+	@JoinColumn(name = "staff_id")
+	private Staff staff;
+	
 	public Course(String name, String description) {
 		super();
 		this.name = name;

@@ -3,6 +3,7 @@ package com.cdac.service;
 import java.util.List;
 
 import com.cdac.dto.CourseRespDTO;
+import com.cdac.dto.StudentDTO;
 import com.cdac.dto.StudentRequestDTO;
 import com.cdac.dto.StudentResponseDTO;
 
@@ -13,4 +14,5 @@ public interface StudentService {
     List<CourseRespDTO> getEnrolledCourses(Long studentId);
     StudentResponseDTO enrollInCourse(Long studentId, Long courseId);
     StudentResponseDTO unenrollFromCourse(Long studentId, Long courseId);
+    List<StudentDTO> getStudentsByStaffId(Long staffId);
 } 

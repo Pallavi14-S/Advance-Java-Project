@@ -7,14 +7,15 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cdac.custom_exceptions.ResourceNotFoundException;
 import com.cdac.dao.CourseDao;
 import com.cdac.dao.StudentDao;
 import com.cdac.dto.CourseRespDTO;
+import com.cdac.dto.StudentDTO;
 import com.cdac.dto.StudentRequestDTO;
 import com.cdac.dto.StudentResponseDTO;
 import com.cdac.entity.Course;
 import com.cdac.entity.Student;
-import com.cdac.custom_exceptions.ResourceNotFoundException;
 
 import lombok.AllArgsConstructor;
 
@@ -95,4 +96,12 @@ public class StudentServiceImpl implements StudentService {
         Student updatedStudent = studentDao.save(student);
         return modelMapper.map(updatedStudent, StudentResponseDTO.class);
     }
+
+	@Override
+	public List<StudentDTO> getStudentsByStaffId(Long staffId) {
+		 List<Student> students = studentDao.findStudentsByStaffId(staffId);
+		  return students.stream()
+	                .map(student -> modelMapper.map(student, StudentDTO.class))
+	                .collect(Collectors.toList());
+	}
 } 
