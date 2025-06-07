@@ -7,11 +7,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cdac.custom_exceptions.AuthenticationException;
 import com.cdac.custom_exceptions.ResourceNotFoundException;
 import com.cdac.dao.CourseDao;
 import com.cdac.dao.StudentDao;
 import com.cdac.dto.CourseRespDTO;
 import com.cdac.dto.StudentDTO;
+import com.cdac.dto.StudentLoginRequestDTO;
 import com.cdac.dto.StudentRequestDTO;
 import com.cdac.dto.StudentResponseDTO;
 import com.cdac.entity.Course;
@@ -26,7 +28,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class StudentServiceImpl implements StudentService {
 
-    private final StudentDao studentDao;
+   
+	private final StudentDao studentDao;
     private final CourseDao courseDao;
     private final ModelMapper modelMapper;
     
@@ -118,4 +121,10 @@ public class StudentServiceImpl implements StudentService {
 	                .collect(Collectors.toList());
 
 	}
+	@Override
+    public StudentResponseDTO loginStudent(StudentLoginRequestDTO loginDTO) {
+        Student student = studentDao.findByEmailAndPassword(loginDTO.getEmail(), loginDTO.getPassword())
+                .orElseThrow(() -> new AuthenticationException("Invalid email or password"));
+        return modelMapper.map(student, StudentResponseDTO.class);
+    }
 } 

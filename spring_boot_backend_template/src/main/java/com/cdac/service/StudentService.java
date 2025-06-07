@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cdac.dto.CourseRespDTO;
 import com.cdac.dto.StudentDTO;
+import com.cdac.dto.StudentLoginRequestDTO;
 import com.cdac.dto.StudentRequestDTO;
 import com.cdac.dto.StudentResponseDTO;
 
@@ -16,5 +17,6 @@ public interface StudentService {
     StudentResponseDTO unenrollFromCourse(Long studentId, Long courseId);
  List<StudentResponseDTO> getEnrollStudent( Long courseId);
  List<StudentDTO> getStudentsByStaffId(Long staffId);
+StudentResponseDTO loginStudent(StudentLoginRequestDTO loginDTO);
 
 } 

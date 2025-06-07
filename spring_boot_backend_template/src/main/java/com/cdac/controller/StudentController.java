@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cdac.dto.CourseRespDTO;
+import com.cdac.dto.StudentLoginRequestDTO;
 import com.cdac.dto.StudentRequestDTO;
 import com.cdac.dto.StudentResponseDTO;
 import com.cdac.service.StudentService;
@@ -30,6 +31,12 @@ public class StudentController {
 
     private final StudentService studentService;
 
+    @PostMapping("/login")
+    @Operation(description = "Student login")
+    public ResponseEntity<?> loginStudent(@Validated @RequestBody StudentLoginRequestDTO loginDTO) {
+        StudentResponseDTO response = studentService.loginStudent(loginDTO);
+        return ResponseEntity.ok(response);
+    }
     @PostMapping
     @Operation(description = "Register a new student")
     public ResponseEntity<?> registerStudent(@Validated @RequestBody StudentRequestDTO studentDTO) {

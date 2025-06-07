@@ -20,6 +20,9 @@ public class StudentRequestDTO extends BaseDto {
     @Size(max = 100, message = "Email must not exceed 100 characters")
     private String email;
     
+    @Pattern(regexp = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[#@$*]).{5,20})", message = "invalid password format!!!!")
+	private String password;
+    
     @NotBlank(message = "Phone number is required")
     @Pattern(regexp = "^\\d{10}$", message = "Phone number must be 10 digits")
     private String phone;
