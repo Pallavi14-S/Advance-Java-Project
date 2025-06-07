@@ -7,13 +7,18 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cdac.custom_exceptions.AuthenticationException;
+import com.cdac.custom_exceptions.ResourceNotFoundException;
 import com.cdac.dao.CourseDao;
 import com.cdac.dao.StudentDao;
 import com.cdac.dto.CourseRespDTO;
+import com.cdac.dto.StudentDTO;
+import com.cdac.dto.StudentLoginRequestDTO;
 import com.cdac.dto.StudentRequestDTO;
 import com.cdac.dto.StudentResponseDTO;
 import com.cdac.entity.Course;
 import com.cdac.entity.Student;
+import com.cdac.entity.UserRole;
 import com.cdac.custom_exceptions.ResourceNotFoundException;
 
 import lombok.AllArgsConstructor;
@@ -23,9 +28,11 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class StudentServiceImpl implements StudentService {
 
-    private final StudentDao studentDao;
+   
+	private final StudentDao studentDao;
     private final CourseDao courseDao;
     private final ModelMapper modelMapper;
+    
 
     @Override
     public StudentResponseDTO registerStudent(StudentRequestDTO studentDTO) {
@@ -33,6 +40,8 @@ public class StudentServiceImpl implements StudentService {
             throw new IllegalArgumentException("Email already exists");
         }
         Student student = modelMapper.map(studentDTO, Student.class);
+        UserRole r=null;
+        student.setRole(r.STUDENT);
         Student savedStudent = studentDao.save(student);
         return modelMapper.map(savedStudent, StudentResponseDTO.class);
     }
@@ -94,5 +103,28 @@ public class StudentServiceImpl implements StudentService {
         student.removeCourse(course);
         Student updatedStudent = studentDao.save(student);
         return modelMapper.map(updatedStudent, StudentResponseDTO.class);
+    }
+
+    @Override
+    public List<StudentResponseDTO> getEnrollStudent(Long courseId) {
+        List<Student> students = studentDao.findStudentsByCourseId(courseId);
+        return students.stream()
+                       .map(student -> modelMapper.map(student, StudentResponseDTO.class))
+                       .toList();
+    }
+
+	@Override
+	public List<StudentDTO> getStudentsByStaffId(Long staffId) {
+		 List<Student> students = studentDao.findStudentsByStaffId(staffId);
+		  return students.stream()
+	                .map(student -> modelMapper.map(student, StudentDTO.class))
+	                .collect(Collectors.toList());
+
+	}
+	@Override
+    public StudentResponseDTO loginStudent(StudentLoginRequestDTO loginDTO) {
+        Student student = studentDao.findByEmailAndPassword(loginDTO.getEmail(), loginDTO.getPassword())
+                .orElseThrow(() -> new AuthenticationException("Invalid email or password"));
+        return modelMapper.map(student, StudentResponseDTO.class);
     }
 } 
