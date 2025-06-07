@@ -19,6 +19,10 @@ public class StudentRequestDTO extends BaseDto {
     @Email(message = "Invalid email format")
     @Size(max = 100, message = "Email must not exceed 100 characters")
     private String email;
+
+    @NotBlank(message = "Password is required")
+    @Size(min = 6, max = 100, message = "Password must be between 6 and 100 characters")
+    private String password;
     
     @NotBlank(message = "Phone number is required")
     @Pattern(regexp = "^\\d{10}$", message = "Phone number must be 10 digits")
