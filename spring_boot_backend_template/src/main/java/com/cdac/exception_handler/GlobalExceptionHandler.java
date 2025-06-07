@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.cdac.custom_exceptions.ApiException;
 import com.cdac.custom_exceptions.AuthenticationException;
 import com.cdac.custom_exceptions.ResourceNotFoundException;
+import com.cdac.dto.ApiResponse;
 
 import jakarta.validation.ConstraintViolationException;
 
@@ -26,13 +27,14 @@ public class GlobalExceptionHandler {
 		System.out.println("in catch all");
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiException(e.getMessage()));
 	}
-
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public ResponseEntity<?> handleResourceNotFoundException(ResourceNotFoundException e) {
 		System.out.println("in handle res not found exc");
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiException(e.getMessage()));
+		return ResponseEntity
+				.status(HttpStatus.NOT_FOUND)
+				.body(new ApiResponse(e.getMessage()));
 	}
-	
+
 		@ExceptionHandler(MethodArgumentNotValidException.class)
 		public ResponseEntity<?> handleMethodArgumentNotValidException
 		(MethodArgumentNotValidException e) {

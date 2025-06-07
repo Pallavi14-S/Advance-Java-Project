@@ -16,6 +16,7 @@ import com.cdac.dto.StudentRequestDTO;
 import com.cdac.dto.StudentResponseDTO;
 import com.cdac.entity.Course;
 import com.cdac.entity.Student;
+import com.cdac.entity.UserRole;
 
 import lombok.AllArgsConstructor;
 
@@ -27,6 +28,7 @@ public class StudentServiceImpl implements StudentService {
     private final StudentDao studentDao;
     private final CourseDao courseDao;
     private final ModelMapper modelMapper;
+    
 
     @Override
     public StudentResponseDTO registerStudent(StudentRequestDTO studentDTO) {
@@ -34,6 +36,8 @@ public class StudentServiceImpl implements StudentService {
             throw new IllegalArgumentException("Email already exists");
         }
         Student student = modelMapper.map(studentDTO, Student.class);
+        UserRole r=null;
+        student.setRole(r.STUDENT);
         Student savedStudent = studentDao.save(student);
         return modelMapper.map(savedStudent, StudentResponseDTO.class);
     }
@@ -97,11 +101,20 @@ public class StudentServiceImpl implements StudentService {
         return modelMapper.map(updatedStudent, StudentResponseDTO.class);
     }
 
+    @Override
+    public List<StudentResponseDTO> getEnrollStudent(Long courseId) {
+        List<Student> students = studentDao.findStudentsByCourseId(courseId);
+        return students.stream()
+                       .map(student -> modelMapper.map(student, StudentResponseDTO.class))
+                       .toList();
+    }
+
 	@Override
 	public List<StudentDTO> getStudentsByStaffId(Long staffId) {
 		 List<Student> students = studentDao.findStudentsByStaffId(staffId);
 		  return students.stream()
 	                .map(student -> modelMapper.map(student, StudentDTO.class))
 	                .collect(Collectors.toList());
+
 	}
 } 

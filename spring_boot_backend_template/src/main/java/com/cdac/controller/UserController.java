@@ -23,16 +23,7 @@ public class UserController {
 	
 	private final UserService userService;
 	
-	@PostMapping("/signup")
-	@Operation(description = "User Sign Up")
-	
-	public ResponseEntity<?> userSignUp(@RequestBody @Valid UserSignUpReqDTO dto)
-	{
-		System.out.println("in user sign up controller..." + dto);
-		
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(userService.registerNewUser(dto));
-	}
+
 	
 	@PostMapping("/signin")
 	@Operation(description = "User Sign in")
