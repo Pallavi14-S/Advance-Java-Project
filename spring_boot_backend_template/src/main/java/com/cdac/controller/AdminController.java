@@ -71,10 +71,10 @@ public class AdminController {
 		
 	}
 	
-	@GetMapping("/{studentId}/getenrollStudent/{courseId}")
-	public ResponseEntity<?> getEnrollStudent(@PathVariable Long studentId,@PathVariable Long courseId){
+	@GetMapping("/getenrollStudent/{courseId}")
+	public ResponseEntity<?> getEnrollStudent(@PathVariable Long courseId){
 		
-		List<StudentResponseDTO> studentList=studentService.getEnrollStudent(studentId,courseId);
+		List<StudentResponseDTO> studentList=studentService.getEnrollStudent(courseId);
 		return ResponseEntity.ok(studentList);
 	}
 	

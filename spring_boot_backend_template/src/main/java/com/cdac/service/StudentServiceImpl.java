@@ -100,12 +100,11 @@ public class StudentServiceImpl implements StudentService {
         return modelMapper.map(updatedStudent, StudentResponseDTO.class);
     }
 
-	@Override
-	public List<StudentResponseDTO> getEnrollStudent(Long studentId,Long courseId) {
-		return studentDao.findByIdAndCourseId(studentId,courseId).stream().map(entity->modelMapper.map(entity, StudentResponseDTO.class))
-		.toList();
-		
-		
-	}
-    
+    @Override
+    public List<StudentResponseDTO> getEnrollStudent(Long courseId) {
+        List<Student> students = studentDao.findStudentsByCourseId(courseId);
+        return students.stream()
+                       .map(student -> modelMapper.map(student, StudentResponseDTO.class))
+                       .toList();
+    }
 } 
