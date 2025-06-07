@@ -10,11 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cdac.dao.CourseDao;
 import com.cdac.dao.StudentDao;
 import com.cdac.dto.CourseRespDTO;
+import com.cdac.dto.StudentLoginRequestDTO;
 import com.cdac.dto.StudentRequestDTO;
 import com.cdac.dto.StudentResponseDTO;
 import com.cdac.entity.Course;
 import com.cdac.entity.Student;
 import com.cdac.entity.UserRole;
+import com.cdac.custom_exceptions.AuthenticationException;
 import com.cdac.custom_exceptions.ResourceNotFoundException;
 
 import lombok.AllArgsConstructor;
@@ -106,5 +108,12 @@ public class StudentServiceImpl implements StudentService {
         return students.stream()
                        .map(student -> modelMapper.map(student, StudentResponseDTO.class))
                        .toList();
+    }
+
+    @Override
+    public StudentResponseDTO loginStudent(StudentLoginRequestDTO loginDTO) {
+        Student student = studentDao.findByEmailAndPassword(loginDTO.getEmail(), loginDTO.getPassword())
+                .orElseThrow(() -> new AuthenticationException("Invalid email or password"));
+        return modelMapper.map(student, StudentResponseDTO.class);
     }
 } 
