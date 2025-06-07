@@ -33,6 +33,9 @@ public class Student extends BaseEntity {
     @Column(length = 10)
     private String phone;
     
+    @Column(length = 20, nullable = false)
+    private String password;
+    
     @ManyToMany
     @JoinTable(
         name = "student_courses",
@@ -40,16 +43,19 @@ public class Student extends BaseEntity {
         inverseJoinColumns = @JoinColumn(name = "course_id")
     )
     private Set<Course> enrolledCourses = new HashSet<>();
+    
     @Enumerated(EnumType.STRING)
-	@Column(name = "user_role")
-	private UserRole role;
+    @Column(name = "user_role")
+    private UserRole role;
     
     // Constructor with required fields
-    public Student(String name, String email, String phone) {
+    public Student(String name, String email, String phone, String password) {
         super();
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.password = password;
+        this.role = UserRole.STUDENT;
     }
     
     // Helper method to add a course
