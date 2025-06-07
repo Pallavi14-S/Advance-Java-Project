@@ -13,6 +13,8 @@ public interface StudentDao extends JpaRepository<Student, Long> {
     Optional<Student> findByEmail(String email);
     boolean existsById(Long id);
     boolean existsByEmail(String email);
+    Optional<Student> findByEmailAndPassword(String email, String password);
+    
     @Query("SELECT s FROM Student s JOIN s.enrolledCourses c WHERE c.id = :courseId")
     List<Student> findStudentsByCourseId(@Param("courseId") Long courseId);
 } 
