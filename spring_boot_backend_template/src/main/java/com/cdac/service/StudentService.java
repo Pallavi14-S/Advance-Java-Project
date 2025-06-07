@@ -13,4 +13,5 @@ public interface StudentService {
     List<CourseRespDTO> getEnrolledCourses(Long studentId);
     StudentResponseDTO enrollInCourse(Long studentId, Long courseId);
     StudentResponseDTO unenrollFromCourse(Long studentId, Long courseId);
+ List<StudentResponseDTO> getEnrollStudent( Long courseId);
 } 

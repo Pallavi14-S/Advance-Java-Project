@@ -5,6 +5,8 @@ import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -38,6 +40,9 @@ public class Student extends BaseEntity {
         inverseJoinColumns = @JoinColumn(name = "course_id")
     )
     private Set<Course> enrolledCourses = new HashSet<>();
+    @Enumerated(EnumType.STRING)
+	@Column(name = "user_role")
+	private UserRole role;
     
     // Constructor with required fields
     public Student(String name, String email, String phone) {
@@ -56,4 +61,12 @@ public class Student extends BaseEntity {
     public void removeCourse(Course course) {
         enrolledCourses.remove(course);
     }
+
+	public Student(String name, String email, String phone, UserRole role) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+		this.role = role;
+	}
 } 
