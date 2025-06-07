@@ -37,8 +37,7 @@ public class StudentServiceImpl implements StudentService {
             throw new IllegalArgumentException("Email already exists");
         }
         Student student = modelMapper.map(studentDTO, Student.class);
-        UserRole r=null;
-        student.setRole(r.STUDENT);
+        student.setRole(UserRole.STUDENT);
         Student savedStudent = studentDao.save(student);
         return modelMapper.map(savedStudent, StudentResponseDTO.class);
     }
